@@ -21,7 +21,7 @@ cloudinary.config({
 console.log("Cloudinary configured:", process.env.CLOUD_NAME, !!process.env.CLOUD_API_KEY);
 
 const port = process.env.PORT || 4001;
-const MONOGO_URL = process.env.MONOG_URI;
+const MONOGO_URL = process.env.MONGO_URI;
 
 // middleware
 app.use(express.json());
