@@ -1,4 +1,4 @@
-import axios from "axios";
+import axiosInstance from "../api/axiosInstance";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
@@ -8,9 +8,8 @@ function MyBlogs() {
   useEffect(() => {
     const fetchMyBlogs = async () => {
       try {
-        const { data } = await axios.get(
-          "http://localhost:4001/api/blogs/my-blog",
-          { withCredentials: true }
+        const { data } = await axiosInstance.get(
+          "/api/blogs/my-blog"
         );
         console.log(data);
         setMyBlogs(data);
@@ -22,10 +21,8 @@ function MyBlogs() {
   }, []);
 
   const handleDelete = async (id) => {
-    await axios
-      .delete(`http://localhost:4001/api/blogs/delete/${id}`, {
-        withCredentials: true,
-      })
+    await axiosInstance
+      .delete(`/api/blogs/delete/${id}`)
       .then((res) => {
         toast.success(res.data.message || "Blog deleted successfully");
         setMyBlogs((value) => value.filter((blog) => blog._id !== id));

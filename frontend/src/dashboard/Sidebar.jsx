@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useAuth } from "../context/AuthProvider";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import axiosInstance from "../api/axiosInstance";
 import { CiMenuBurger } from "react-icons/ci";
 import { BiSolidLeftArrowAlt, BiChevronLeft, BiChevronRight } from "react-icons/bi";
 import toast from "react-hot-toast";
@@ -26,9 +26,7 @@ function Sidebar({ setComponent }) {
     e.preventDefault();
     setLoadingLogout(true);
     try {
-      const { data } = await axios.get("http://localhost:4001/api/users/logout", {
-        withCredentials: true,
-      });
+      const { data } = await axiosInstance.get("/api/users/logout");
       toast.success(data.message || "Logged out");
       localStorage.removeItem("jwt");
       setIsAuthenticated(false);

@@ -1,4 +1,4 @@
-import axios from "axios";
+import axiosInstance from "../api/axiosInstance";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
@@ -40,15 +40,9 @@ function Register() {
     formData.append("education", education);
     formData.append("photo", photo);
     try {
-      const { data } = await axios.post(
-        "http://localhost:4001/api/users/register",
-        formData,
-        {
-          withCredentials: true,
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
+      const { data } = await axiosInstance.post(
+        "/api/users/register",
+        formData
       );
       console.log(data);
       localStorage.setItem("jwt", data.token); // storing token in localStorage so that if user refreshed the page it will not redirect again in login

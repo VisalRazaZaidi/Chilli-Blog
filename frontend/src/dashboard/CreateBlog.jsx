@@ -1,4 +1,4 @@
-import axios from "axios";
+import axiosInstance from "../api/axiosInstance";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 
@@ -30,15 +30,9 @@ function CreateBlog() {
 
     formData.append("blogImage", blogImage);
     try {
-      const { data } = await axios.post(
-        "http://localhost:4001/api/blogs/create",
-        formData,
-        {
-          withCredentials: true,
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
+      const { data } = await axiosInstance.post(
+        "/api/blogs/create",
+        formData
       );
       console.log(data);
       toast.success(data.message || "User registered successfully");

@@ -1,4 +1,4 @@
-import axios from "axios";
+import axiosInstance from "../api/axiosInstance";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
@@ -16,15 +16,9 @@ function Login() {
     e.preventDefault();
 
     try {
-      const { data } = await axios.post(
-        "http://localhost:4001/api/users/login",
-        { email, password, role },
-        {
-          withCredentials: true,
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
+      const { data } = await axiosInstance.post(
+        "/api/users/login",
+        { email, password, role }
       );
       console.log(data);
       // Store the token in localStorage
