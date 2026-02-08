@@ -43,6 +43,40 @@ function Login() {
     }
   };
 
+  const handleDemoLogin = async () => {
+    const demoEmail = "user@user.com";
+    const demoPassword = "123456789";
+    const demoRole = "user";
+
+    try {
+      toast.loading("Logging in as Demo User...", { id: "demo-login" });
+      const { data } = await axiosInstance.post("/api/users/login", {
+        email: demoEmail,
+        password: demoPassword,
+        role: demoRole,
+      });
+      console.log(data);
+      // Store the token in localStorage
+      localStorage.setItem("jwt", data.token);
+      toast.success(data.message || "Demo User Logged In Successfully!", {
+        duration: 3000,
+        id: "demo-login",
+      });
+      setProfile(data);
+      setIsAuthenticated(true);
+      navigateTo("/");
+    } catch (error) {
+      console.log(error);
+      toast.error(
+        error.response?.data?.message || "Demo login failed. Please try again.",
+        {
+          duration: 3000,
+          id: "demo-login",
+        }
+      );
+    }
+  };
+
   return (
     <div>
       <div className="min-h-screen flex items-center justify-center bg-gray-100">
@@ -93,6 +127,13 @@ function Login() {
               className="w-full p-2 bg-blue-500 hover:bg-blue-800 duration-300 rounded-md text-white"
             >
               Login
+            </button>
+            <button
+              type="button"
+              onClick={handleDemoLogin}
+              className="w-full p-2 mt-3 bg-green-500 hover:bg-green-700 duration-300 rounded-md text-white font-semibold"
+            >
+              🔹 Login as Demo User
             </button>
           </form>
         </div>
