@@ -47,6 +47,10 @@ The **Blog Application Platform** is a comprehensive web application that empowe
 
 ---
 
+## 📸 ScreenShot
+
+![alt text](image.png)
+
 ## 🛠️ Core Technologies
 
 ### **Backend Stack**
