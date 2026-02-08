@@ -49,7 +49,7 @@ The **Blog Application Platform** is a comprehensive web application that empowe
 
 ## 📸 ScreenShot
 
-![alt text](image.png)
+![alt text](/frontend/public/image.png)
 
 ## 🛠️ Core Technologies
 
