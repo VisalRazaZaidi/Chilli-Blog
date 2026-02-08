@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { AiOutlineMenu } from "react-icons/ai";
 import { IoCloseSharp } from "react-icons/io5";
 import { useAuth } from "../context/AuthProvider";
-import axios from "axios";
+import axiosInstance from "../api/axiosInstance";
 import toast from "react-hot-toast";
 
 function Navbar() {
@@ -16,10 +16,9 @@ function Navbar() {
   const handleLogout = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await axios.post(
-        "http://localhost:4001/api/users/logout",
-        {},
-        { withCredentials: true }
+      const { data } = await axiosInstance.post(
+        "/api/users/logout",
+        {}
       );
       console.log(data);
       localStorage.removeItem("jwt"); // deleting token in localStorage so that if user logged out it will goes to login page
