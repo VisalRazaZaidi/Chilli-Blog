@@ -26,18 +26,19 @@ const MONOGO_URL = process.env.MONGO_URI;
 // middleware
 app.use(express.json());
 app.use(cookieParser());
+
 // CORS configuration to allow requests from frontend
 const allowedOrigins = [
   "http://localhost:5173",
   "http://localhost:3000",
   "http://localhost:5174",
+  "https://chilli-blog.vercel.app",
   process.env.FRONTEND_URL,
 ].filter(Boolean); // Remove undefined values
 
-
 app.use(
   cors({
-    origin: (origin, callback) => {
+    origin: function (origin, callback) {
       if (!origin || allowedOrigins.includes(origin)) {
         callback(null, true);
       } else {
@@ -45,8 +46,13 @@ app.use(
       }
     },
     credentials: true,
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    allowedHeaders: ["Content-Type", "application/json"],
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+    allowedHeaders: [
+      "Content-Type",
+      "Authorization",
+      "X-Requested-With",
+      "Accept",
+    ],
   })
 );
 
